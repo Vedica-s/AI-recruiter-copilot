@@ -223,18 +223,14 @@ We welcome contributions! Here's how you can help:
 
 ## 👥 Team Info
 
-**Project Lead**: Devejya
+**Project Lead**: Vedica Saini
 
 **Contributors**:
-- Devejya - Lead Developer & AI Architect
+- Vedica - Lead Developer & AI Architect
 
 This project was built as part of [Hackathon Name] to demonstrate innovative applications of AI in recruitment.
 
-## 📧 Contact
 
-- **GitHub**: [@devejya56](https://github.com/devejya56)
-- **Project Repository**: [ai-recruiter-copilot](https://github.com/devejya56/ai-recruiter-copilot)
-- **Issues**: [Report bugs or request features](https://github.com/devejya56/ai-recruiter-copilot/issues)
 
 For questions or collaboration opportunities, please open an issue or reach out via GitHub.
 
