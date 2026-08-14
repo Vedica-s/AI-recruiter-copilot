@@ -4,20 +4,29 @@ AI-powered recruitment copilot with multi-LLM orchestration for automated candid
 
 ## 🚀 Project Overview
 
-AI Recruiter Copilot is an intelligent recruitment automation system that leverages multiple Large Language Models (LLMs) to streamline the entire hiring process. The system orchestrates various AI agents to handle candidate sourcing, resume screening, skill assessment, and automated engagement, significantly reducing time-to-hire while improving candidate quality.
+AI Recruiter Copilot is an intelligent recruitment automation system that leverages multiple Large Language Models (LLMs) to streamline the hiring process. The system orchestrates five specialized AI agents to handle candidate sourcing, resume screening, skill assessment, and automated engagement — reducing time-to-hire while improving candidate quality.
 
-Built for hackathon submission, this project demonstrates the power of multi-agent AI systems in revolutionizing traditional recruitment workflows.
+Built as a hackathon project, this repo demonstrates multi-agent AI orchestration across GPT-4, Claude, and Gemini working together on a shared pipeline.
 
 ## ✨ Features
 
-- **Multi-LLM Orchestration**: Intelligent routing between different LLMs (GPT-4, Claude, Gemini) based on task requirements
-- **Automated Candidate Sourcing**: AI-powered search across multiple platforms (LinkedIn, GitHub, job boards)
-- **Intelligent Resume Screening**: Automated parsing and ranking of candidate profiles against job requirements
-- **Skills Assessment**: Dynamic evaluation of technical and soft skills using AI-driven analysis
-- **Automated Engagement**: Personalized email outreach and follow-up communication
-- **Recruiter Agent**: Dedicated agent in `recruiter_agent.py` for end-to-end recruitment workflow
-- **Composio Integration**: Seamless integration with external tools and platforms
-- **Real-time Analytics**: Dashboard for tracking recruitment metrics and pipeline status
+- **Multi-LLM Orchestration** — intelligent routing between GPT-4, Claude, and Gemini based on task requirements
+- **Automated Candidate Sourcing** — AI-powered search across LinkedIn, GitHub, and job boards
+- **Intelligent Resume Screening** — automated parsing and structured extraction of candidate profiles
+- **Skills Assessment** — technical and soft-skill scoring against a job's requirements
+- **Automated Engagement** — personalized outreach email generation
+- **Analytics Dashboard** — tracks recruitment pipeline metrics (screened → qualified → contacted)
+- **Composio Integration** — connects agents to external platforms and tools
+
+## 🧩 My Contributions
+
+This was a team hackathon build. My work focused on three of the five agents/modules:
+
+- **Resume Parsing (Screening Agent)** — building the extraction pipeline that turns unstructured resumes into structured candidate data (PDF parsing, NLP extraction, entity recognition)
+- **Candidate Scoring (Assessment Agent)** — designing the scoring logic that ranks candidates against job requirements
+- **Analytics Dashboard** — the reporting layer that surfaces pipeline metrics (total screened, qualified, contacted)
+
+Sourcing (candidate discovery via Composio) and Engagement (outreach email generation) were built by other teammates.
 
 ## 📋 Requirements
 
@@ -30,28 +39,24 @@ Built for hackathon submission, this project demonstrates the power of multi-age
 
 ## 🔧 Installation
 
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/devejya56/ai-recruiter-copilot.git
-   cd ai-recruiter-copilot
-   ```
+```bash
+# Clone the repository
+git clone https://github.com/Vedica-s/AI-recruiter-copilot.git
+cd AI-recruiter-copilot
 
-2. **Create a virtual environment**
-   ```bash
-   python -m venv venv
-   source venv/bin/activate  # On Windows: venv\Scripts\activate
-   ```
+# Create a virtual environment
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
 
-3. **Install dependencies**
-   ```bash
-   pip install -r requirements.txt
-   ```
+# Install dependencies
+pip install -r requirements.txt
+```
 
 ## 🔑 Environment Configuration
 
-Create a `.env` file in the root directory with the following configuration:
+Create a `.env` file in the root directory (see `.env.example`):
 
-```env
+```
 # OpenAI Configuration
 OPENAI_API_KEY=your_openai_api_key_here
 
@@ -78,35 +83,27 @@ ENVIRONMENT=development
 LOG_LEVEL=INFO
 ```
 
-**Note**: Never commit your `.env` file to version control. Add it to `.gitignore`.
+**Note:** Never commit your `.env` file to version control.
 
 ## 🚀 How to Run
 
-### Basic Usage
-
 ```bash
 # Run the main recruiter agent
-python recruiter_agent.py
-```
+python main.py
 
-### Advanced Usage
-
-```bash
-# Run with specific job description
-python recruiter_agent.py --job-file job_description.json
+# Run with a specific job description
+python main.py --job-file configs/job_descriptions/example.json
 
 # Run with custom configuration
-python recruiter_agent.py --config custom_config.yaml
+python main.py --config custom_config.yaml
 
 # Run in interactive mode
-python recruiter_agent.py --interactive
+python main.py --interactive
 ```
 
 ## 📊 Expected Input/Output
 
-### Input Format
-
-Provide a job description in JSON format:
+**Input** — job description in JSON format:
 
 ```json
 {
@@ -126,9 +123,7 @@ Provide a job description in JSON format:
 }
 ```
 
-### Output Format
-
-The system generates:
+**Output** — ranked candidates with match reasoning and pipeline summary:
 
 ```json
 {
@@ -155,108 +150,29 @@ The system generates:
 
 ## 🔄 Workflow Summary
 
-1. **Job Analysis**: Parse and understand job requirements using GPT-4
-2. **Candidate Sourcing**: Search platforms using Composio integrations
-3. **Resume Screening**: Extract and analyze candidate information with Claude
-4. **Skills Matching**: Score candidates against requirements using Gemini
-5. **Ranking**: Sort candidates by fit score and availability
-6. **Engagement**: Generate personalized outreach emails
-7. **Follow-up**: Track responses and schedule interviews
-8. **Analytics**: Generate recruitment pipeline reports
+1. **Job Analysis** — parse and understand job requirements using GPT-4
+2. **Candidate Sourcing** — search platforms using Composio integrations
+3. **Resume Screening** — extract and structure candidate information with Claude
+4. **Skills Matching** — score candidates against requirements using Gemini
+5. **Ranking** — sort candidates by fit score and availability
+6. **Engagement** — generate personalized outreach emails
+7. **Follow-up** — track responses and schedule interviews
+8. **Analytics** — generate recruitment pipeline reports
 
 ## 🤖 Agents Breakdown
 
-### 1. Sourcing Agent
-- **Model**: GPT-4
-- **Function**: Discovers candidates across multiple platforms
-- **Tools**: LinkedIn API, GitHub API, Indeed scraper
+| Agent | Model | Function | Tools |
+|---|---|---|---|
+| Sourcing | GPT-4 | Discovers candidates across platforms | LinkedIn API, GitHub API, Indeed scraper |
+| Screening | Claude | Parses resumes, extracts structured data | PDF parser, NLP extraction, entity recognition |
+| Assessment | Gemini | Evaluates technical/soft skills | Skill taxonomy, scoring algorithms |
+| Engagement | GPT-4 | Creates personalized communication | Email templates, tone analyzer |
+| Orchestrator | Multi-LLM | Coordinates agents, manages workflow | State management, decision routing |
 
-### 2. Screening Agent
-- **Model**: Claude
-- **Function**: Parses resumes and extracts structured data
-- **Tools**: PDF parser, NLP extraction, entity recognition
+## 👥 Team
 
-### 3. Assessment Agent
-- **Model**: Gemini
-- **Function**: Evaluates technical and soft skills
-- **Tools**: Skill taxonomy, scoring algorithms
+- **Vedica** — Resume Parsing (Screening Agent), Candidate Scoring (Assessment Agent), Analytics Dashboard
 
-### 4. Engagement Agent
-- **Model**: GPT-4
-- **Function**: Creates personalized communication
-- **Tools**: Email templates, tone analyzer
-
-### 5. Orchestrator Agent
-- **Model**: Multi-LLM
-- **Function**: Coordinates all agents and manages workflow
-- **Tools**: State management, decision routing
-
-## 🤝 Contribution Guide
-
-We welcome contributions! Here's how you can help:
-
-1. **Fork the repository**
-2. **Create a feature branch**
-   ```bash
-   git checkout -b feature/amazing-feature
-   ```
-3. **Make your changes**
-4. **Run tests**
-   ```bash
-   pytest tests/
-   ```
-5. **Commit your changes**
-   ```bash
-   git commit -m 'Add amazing feature'
-   ```
-6. **Push to the branch**
-   ```bash
-   git push origin feature/amazing-feature
-   ```
-7. **Open a Pull Request**
-
-### Code Style
-- Follow PEP 8 guidelines
-- Add docstrings to all functions
-- Include unit tests for new features
-- Update documentation as needed
-
-## 👥 Team Info
-
-**Project Lead**: Vedica Saini
-
-**Contributors**:
-- Vedica - Lead Developer & AI Architect
-
-This project was built as part of [Hackathon Name] to demonstrate innovative applications of AI in recruitment.
-
-
-
-For questions or collaboration opportunities, please open an issue or reach out via GitHub.
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-### MIT License Summary
-
-```
-Copyright (c) 2025 Vedica Saini
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
-```
 
 ## 🎯 Future Enhancements
 
@@ -266,15 +182,3 @@ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
 - [ ] Multi-language support
 - [ ] Mobile application
 - [ ] Chrome extension for quick candidate evaluation
-
-## 🙏 Acknowledgments
-
-- OpenAI for GPT-4 API
-- Anthropic for Claude API
-- Google for Gemini API
-- Composio for integration platform
-- All contributors and supporters
-
----
-
-**Built with ❤️ for better recruitment experiences**
